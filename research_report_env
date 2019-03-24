@@ -22,12 +22,16 @@ RUN git clone https://github.com/potyt/fonts.git
 RUN git clone https://github.com/l10n-tw/cwtex-q-fonts-TTFs.git
 RUN cp -r fonts/macfonts/Times\ New\ Roman/ /usr/share/fonts/truetype/
 RUN chmod 755 /usr/share/fonts/truetype/Times\ New\ Roman/ -R
-RUN cp -r TW-fonts/ /usr/share/fonts/
-RUN chmod 755 /usr/share/fonts/truetype/*.ttf -R
+RUN cp -r cwtex-q-fonts-TTFs/ttf/* /usr/share/fonts/
+RUN chmod 755 /usr/share/fonts/*.ttf -R
 RUN fc-cache -f -v
 
 # Install xelatex NTU/NTHU theme
 WORKDIR /home
 RUN git clone https://github.com/tzhuan/ntu-thesis.git
 WORKDIR /home/ntu-thesis
-RUN 
+RUN make
+RUN make clean
+
+# Results
+## /home/ntu-thesis/thesis.pdf
