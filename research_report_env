@@ -1,0 +1,33 @@
+FROM  ubuntu
+MAINTAINER lupoy
+
+RUN apt update
+RUN apt upgrade -y
+RUN apt install software-properties-common -y
+RUN apt install build-essential -y
+RUN apt install wget -y
+RUN apt install vim -y
+RUN apt install git -y
+RUN apt install texlive-full -y
+
+# Install pdftk manually
+## RUN add-apt-repository ppa:malteworld/ppa
+## RUN apt update
+## RUN apt install pdftk -y
+
+# Install fonts
+RUN mkdir /font
+WORKDIR /font
+RUN git clone https://github.com/potyt/fonts.git
+RUN git clone https://github.com/l10n-tw/cwtex-q-fonts-TTFs.git
+RUN cp -r fonts/macfonts/Times\ New\ Roman/ /usr/share/fonts/truetype/
+RUN chmod 755 /usr/share/fonts/truetype/Times\ New\ Roman/ -R
+RUN cp -r TW-fonts/ /usr/share/fonts/
+RUN chmod 755 /usr/share/fonts/truetype/*.ttf -R
+RUN fc-cache -f -v
+
+# Install xelatex NTU/NTHU theme
+WORKDIR /home
+RUN git clone https://github.com/tzhuan/ntu-thesis.git
+WORKDIR /home/ntu-thesis
+RUN 
